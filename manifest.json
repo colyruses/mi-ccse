@@ -1,0 +1,12 @@
+{
+  "name": "Mi CCSE — Preparación para la nacionalidad española",
+  "short_name": "Mi CCSE",
+  "description": "Practica para el examen CCSE.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4f6fa",
+  "theme_color": "#173c72",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

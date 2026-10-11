@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#173c72">
+<meta name="description" content="Practica para el examen CCSE de nacionalidad española.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Mi CCSE — Preparación</title>
+<style>
+:root{--blue:#173c72;--blue2:#24549a;--red:#b62c36;--ink:#172033;--muted:#667085;--bg:#f4f6fa;--card:#fff;--line:#e1e6ef;--good:#18794e;--bad:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:white;padding:24px 18px 28px;border-radius:0 0 24px 24px}
+.wrap{max-width:760px;margin:auto;padding:0 16px}header .wrap{padding:0} .brand{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.85;font-weight:700}.hero{font-size:30px;font-weight:800;margin:7px 0 5px}.sub{opacity:.9;margin:0}
+main{padding:18px 0 42px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin:0 0 14px;box-shadow:0 4px 18px #122b4a0a}
+h2{font-size:19px;margin:0 0 12px}h3{font-size:16px;margin:0 0 8px}.muted{color:var(--muted);font-size:14px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{background:#f4f7fc;border-radius:13px;padding:12px;text-align:center}.stat b{display:block;font-size:24px;color:var(--blue)}.stat span{font-size:12px;color:var(--muted)}
+button,select{font:inherit}button{border:0;border-radius:12px;padding:12px 15px;background:var(--blue);color:white;font-weight:700;cursor:pointer}button.secondary{background:#e9eef7;color:var(--blue)}button.light{background:white;color:var(--blue);border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}.topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.topic{background:white;border:1px solid var(--line);border-radius:14px;padding:14px;text-align:left;color:var(--ink);font-weight:700}.topic small{display:block;color:var(--muted);font-weight:400;margin-top:4px}.topic.active{border:2px solid var(--blue);background:#f2f6ff}
+.hidden{display:none!important}.pill{display:inline-block;border-radius:999px;padding:5px 9px;background:#edf2fb;color:var(--blue);font-size:12px;font-weight:700}.progress{height:7px;background:#e8edf5;border-radius:99px;overflow:hidden;margin:10px 0 16px}.progress div{height:100%;background:#d9a72d;width:0;transition:width .2s}.question{font-size:20px;font-weight:750;margin:12px 0 18px}.answers{display:grid;gap:10px}.answer{display:flex;gap:10px;align-items:flex-start;text-align:left;background:#fff;color:var(--ink);border:1px solid var(--line);font-weight:500;padding:13px;border-radius:13px}.answer .letter{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:50%;background:#eef2f8;color:var(--blue);font-weight:800}.answer.selected{border:2px solid var(--blue);background:#f3f7ff}.answer.correct{border:2px solid var(--good);background:#eefaf3}.answer.wrong{border:2px solid var(--bad);background:#fff3f2}.feedback{padding:12px;border-radius:12px;margin-top:12px;font-size:14px}.feedback.good{background:#eefaf3;color:#166534}.feedback.bad{background:#fff3f2;color:#912018}.foot{font-size:12px;color:var(--muted);text-align:center;margin-top:20px}.badge{font-size:12px;color:var(--muted)}.result-score{font-size:44px;font-weight:850;color:var(--blue)}.review-item{border-top:1px solid var(--line);padding:12px 0}.review-item:last-child{padding-bottom:0}
+@media(max-width:480px){.hero{font-size:27px}.topic-grid{grid-template-columns:1fr}.stats{gap:7px}.stat{padding:10px 5px}.card{padding:15px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="brand">🇪🇸 Preparación para la nacionalidad</div><div class="hero">Mi CCSE</div><p class="sub">Paso a paso, hasta el examen.</p></div></header>
+<main class="wrap">
+<section id="home">
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><h2>Tu progreso</h2><span class="pill">Versión inicial</span></div>
+    <div class="stats"><div class="stat"><b id="statTests">0</b><span>Tests realizados</span></div><div class="stat"><b id="statAverage">—</b><span>Media de aciertos</span></div><div class="stat"><b id="statBest">—</b><span>Mejor resultado</span></div></div>
+    <p class="muted" style="margin-bottom:0">Tus resultados se guardan en este dispositivo.</p>
+  </div>
+  <div class="card">
+    <h2>¿Cómo quieres practicar?</h2>
+    <div class="row"><button id="examBtn">Simulacro de 25 preguntas</button><button id="quickBtn" class="secondary">Test rápido de 10</button></div>
+    <p class="muted">Las preguntas se eligen al azar del banco disponible. En el simulacro, el resultado aparece al final.</p>
+  </div>
+  <div class="card">
+    <h2>Practicar por temas</h2>
+    <div class="topic-grid" id="topics"></div>
+  </div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><h2>Últimos resultados</h2><button class="light" id="clearBtn">Borrar historial</button></div>
+    <div id="history" class="muted">Todavía no has realizado ningún test.</div>
+  </div>
+  <p class="foot">Material de práctica creado para estudiar. No es una aplicación oficial del Instituto Cervantes.</p>
+</section>
+<section id="quiz" class="hidden">
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><span class="pill" id="modeLabel">Simulacro</span><span class="badge" id="counter">Pregunta 1 de 25</span></div>
+    <div class="progress"><div id="progressBar"></div></div>
+    <div id="topicLabel" class="muted"></div>
+    <div class="question" id="questionText"></div>
+    <div class="answers" id="answers"></div>
+    <div id="feedback" class="feedback hidden"></div>
+    <div class="row" style="justify-content:space-between;margin-top:16px"><button class="secondary" id="exitBtn">Salir</button><button id="nextBtn" disabled>Comprobar</button></div>
+  </div>
+</section>
+<section id="result" class="hidden">
+  <div class="card">
+    <span class="pill">Test terminado</span><h2 style="margin-top:12px">Tu resultado</h2>
+    <div class="result-score" id="scoreText">—</div><p id="resultMessage"></p>
+    <div class="row"><button id="againBtn">Otro test</button><button class="secondary" id="homeBtn">Inicio</button></div>
+  </div>
+  <div class="card"><h2>Revisión de respuestas</h2><div id="review"></div></div>
+</section>
+</main>
+<script>
+const BANK = [
+{t:"Constitución y derechos",q:"¿En qué año se aprobó la Constitución española vigente?",a:["1975","1978","1982"],c:1,e:"La Constitución fue aprobada en referéndum el 6 de diciembre de 1978."},
+{t:"Constitución y derechos",q:"¿Qué forma política tiene el Estado español?",a:["República federal","Monarquía parlamentaria","Monarquía absoluta"],c:1,e:"España es una monarquía parlamentaria."},
+{t:"Constitución y derechos",q:"¿A quién pertenece la soberanía nacional?",a:["Al pueblo español","Al Gobierno","Al rey"],c:0,e:"La soberanía nacional reside en el pueblo español."},
+{t:"Constitución y derechos",q:"¿Cuál es la mayoría de edad en España?",a:["16 años","18 años","21 años"],c:1,e:"La mayoría de edad se alcanza a los 18 años."},
+{t:"Constitución y derechos",q:"¿Qué valor constitucional aparece entre los siguientes?",a:["La censura","La desigualdad","El pluralismo político"],c:2,e:"El pluralismo político es uno de los valores superiores del ordenamiento jurídico."},
+{t:"Instituciones y política",q:"¿Qué instituciones forman las Cortes Generales?",a:["El Congreso y el Senado","El Gobierno y los tribunales","Los ayuntamientos y las diputaciones"],c:0,e:"Las Cortes Generales están formadas por el Congreso de los Diputados y el Senado."},
+{t:"Instituciones y política",q:"¿Quién es el jefe del Estado español?",a:["El presidente del Congreso","El rey","El presidente del Tribunal Supremo"],c:1,e:"El rey es el jefe del Estado."},
+{t:"Instituciones y política",q:"¿Qué poder del Estado corresponde al Gobierno?",a:["El poder ejecutivo","El poder judicial","El poder legislativo"],c:0,e:"El Gobierno ejerce el poder ejecutivo."},
+{t:"Instituciones y política",q:"¿Cuántos diputados tiene el Congreso de los Diputados?",a:["250","300","350"],c:2,e:"El Congreso está compuesto por 350 diputados."},
+{t:"Instituciones y política",q:"¿Qué institución controla las cuentas y la gestión económica del sector público?",a:["El Tribunal de Cuentas","El Tribunal Constitucional","El Consejo de Estado"],c:0,e:"El Tribunal de Cuentas fiscaliza la actividad económico-financiera del sector público."},
+{t:"Organización territorial",q:"¿Cuántas comunidades autónomas hay en España?",a:["17","19","50"],c:0,e:"España tiene 17 comunidades autónomas y 2 ciudades autónomas."},
+{t:"Organización territorial",q:"¿Cuáles son las dos ciudades autónomas españolas?",a:["Alicante y Valencia","Ceuta y Melilla","Ibiza y Formentera"],c:1,e:"Ceuta y Melilla son ciudades autónomas."},
+{t:"Organización territorial",q:"¿Cuál es la capital de Aragón?",a:["Huesca","Teruel","Zaragoza"],c:2,e:"La capital de Aragón es Zaragoza."},
+{t:"Organización territorial",q:"¿Cuál es la capital de Extremadura?",a:["Mérida","Cáceres","Badajoz"],c:0,e:"La capital de Extremadura es Mérida."},
+{t:"Organización territorial",q:"¿Quién dirige un ayuntamiento?",a:["Un ministro","Un alcalde o una alcaldesa","Un senador"],c:1,e:"El alcalde o la alcaldesa dirige el ayuntamiento."},
+{t:"Elecciones y participación",q:"¿A qué edad se puede votar en las elecciones generales en España?",a:["16 años","18 años","21 años"],c:1,e:"La edad mínima para votar en las elecciones generales es de 18 años."},
+{t:"Elecciones y participación",q:"¿Cómo se ejerce el voto en las elecciones?",a:["Es público y obligatorio","Es personal y secreto","Lo decide el ayuntamiento"],c:1,e:"El voto es personal y secreto."},
+{t:"Unión Europea",q:"¿En qué año entró España en las Comunidades Europeas?",a:["1978","1986","1999"],c:1,e:"España ingresó el 1 de enero de 1986."},
+{t:"Unión Europea",q:"¿Cuál es la moneda oficial de España?",a:["La peseta","El dólar","El euro"],c:2,e:"La moneda oficial es el euro."},
+{t:"Unión Europea",q:"¿Cada cuántos años se celebran normalmente las elecciones al Parlamento Europeo?",a:["Cada 3 años","Cada 5 años","Cada 7 años"],c:1,e:"Las elecciones al Parlamento Europeo se celebran cada cinco años."},
+{t:"Símbolos y fiestas",q:"¿Qué día se celebra la Fiesta Nacional de España?",a:["6 de diciembre","12 de octubre","1 de mayo"],c:1,e:"La Fiesta Nacional de España se celebra el 12 de octubre."},
+{t:"Símbolos y fiestas",q:"¿Cómo se llama el himno nacional español?",a:["La Marcha Real","La Internacional","La Jota Española"],c:0,e:"El himno nacional se conoce como La Marcha Real y no tiene letra oficial."},
+{t:"Símbolos y fiestas",q:"¿Qué tradición se celebra en Nochevieja?",a:["Comer doce uvas","Lanzar ninots al mar","Regalar rosas y libros"],c:0,e:"Es tradición tomar doce uvas al cambiar de año."},
+{t:"Historia",q:"¿En qué año murió Francisco Franco?",a:["1968","1975","1978"],c:1,e:"Francisco Franco murió en 1975."},
+{t:"Historia",q:"¿Cómo se conoce popularmente la Constitución de Cádiz de 1812?",a:["La Pepa","La Roja","La Transición"],c:0,e:"La Constitución de Cádiz de 1812 se conoce como La Pepa."},
+{t:"Historia",q:"¿Qué ocurrió en 1492 relacionado con los Reyes Católicos?",a:["Se aprobó la Constitución actual","Conquistaron Granada","Comenzó la Guerra Civil"],c:1,e:"Los Reyes Católicos conquistaron Granada en 1492."},
+{t:"Historia",q:"¿En qué año comenzó la Guerra de la Independencia española contra la ocupación napoleónica?",a:["1808","1812","1898"],c:0,e:"La Guerra de la Independencia comenzó en 1808."},
+{t:"Literatura y arte",q:"¿Quién escribió Don Quijote de la Mancha?",a:["Federico García Lorca","Miguel de Cervantes","Camilo José Cela"],c:1,e:"Don Quijote de la Mancha es la obra más conocida de Miguel de Cervantes."},
+{t:"Literatura y arte",q:"¿Quién pintó Las Meninas?",a:["Diego Velázquez","Francisco de Goya","Pablo Picasso"],c:0,e:"Las Meninas es una obra de Diego Velázquez."},
+{t:"Literatura y arte",q:"¿Quién pintó el Guernica?",a:["Salvador Dalí","Joan Miró","Pablo Picasso"],c:2,e:"Guernica es una obra de Pablo Picasso."},
+{t:"Literatura y arte",q:"¿Qué arquitecto diseñó la Sagrada Familia de Barcelona?",a:["Antoni Gaudí","Frank Gehry","Diego Velázquez"],c:0,e:"La Sagrada Familia está vinculada al arquitecto Antoni Gaudí."},
+{t:"Fiestas y tradiciones",q:"¿En qué ciudad se celebran Las Fallas?",a:["Sevilla","Valencia","Pamplona"],c:1,e:"Las Fallas son una fiesta muy conocida de Valencia."},
+{t:"Fiestas y tradiciones",q:"¿En qué localidad se celebra La Tomatina?",a:["Buñol","Mérida","Toledo"],c:0,e:"La Tomatina se celebra en Buñol, en la provincia de Valencia."},
+{t:"Fiestas y tradiciones",q:"¿En qué ciudad tienen lugar los Sanfermines?",a:["Cádiz","Pamplona","Granada"],c:1,e:"Los Sanfermines se celebran en Pamplona."},
+{t:"Lenguas y sociedad",q:"¿Qué lengua es cooficial en Galicia junto con el castellano?",a:["El gallego","El catalán","El aragonés"],c:0,e:"El gallego es lengua cooficial en Galicia."},
+{t:"Lenguas y sociedad",q:"¿Cuál es la lengua oficial del Estado en toda España?",a:["El castellano","El valenciano","El euskera"],c:0,e:"El castellano es la lengua española oficial del Estado."}
+];
+const TOPICS=[...new Set(BANK.map(x=>x.t))];
+let quiz=[],idx=0,answers=[],mode="exam",selected=null,checked=false;
+const $=id=>document.getElementById(id);
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function show(section){["home","quiz","result"].forEach(s=>$(s).classList.toggle("hidden",s!==section));window.scrollTo({top:0,behavior:"smooth"})}
+function loadStats(){let h=JSON.parse(localStorage.getItem("ccseHistory")||"[]");$("statTests").textContent=h.length;$("statAverage").textContent=h.length?Math.round(h.reduce((n,x)=>n+x.score,0)/h.length*100)+"%":"—";$("statBest").textContent=h.length?Math.round(Math.max(...h.map(x=>x.score))*100)+"%":"—";$("history").innerHTML=h.length? h.slice(-5).reverse().map(x=>`<div class="review-item"><b>${x.label}</b><div class="muted">${x.date} · ${x.correct}/${x.total} aciertos (${Math.round(x.score*100)}%)</div></div>`).join(""):"Todavía no has realizado ningún test."}
+function drawTopics(){$("topics").innerHTML=TOPICS.map(t=>`<button class="topic" data-topic="${t}">${t}<small>${BANK.filter(q=>q.t===t).length} preguntas disponibles</small></button>`).join("");document.querySelectorAll("[data-topic]").forEach(b=>b.addEventListener("click",()=>start("topic",10,b.dataset.topic)))}
+function start(which,n,topic){mode=which;let pool=topic?BANK.filter(q=>q.t===topic):BANK;quiz=shuffle(pool).slice(0,Math.min(n,pool.length)).map(q=>({...q}));idx=0;answers=Array(quiz.length).fill(null);selected=null;checked=false;$("modeLabel").textContent=which==="exam"?"Simulacro de examen":which==="quick"?"Test rápido":"Tema: "+topic;show("quiz");renderQuestion()}
+function renderQuestion(){let q=quiz[idx];selected=null;checked=false;$("counter").textContent=`Pregunta ${idx+1} de ${quiz.length}`;$("progressBar").style.width=(idx/quiz.length*100)+"%";$("topicLabel").textContent=q.t;$("questionText").textContent=q.q;$("feedback").className="feedback hidden";$("feedback").textContent="";$("nextBtn").disabled=true;$("nextBtn").textContent="Comprobar";$("answers").innerHTML=q.a.map((a,i)=>`<button class="answer" data-i="${i}"><span class="letter">${"ABC"[i]}</span><span>${a}</span></button>`).join("");document.querySelectorAll("[data-i]").forEach(b=>b.addEventListener("click",()=>{if(checked)return;selected=Number(b.dataset.i);document.querySelectorAll(".answer").forEach(x=>x.classList.toggle("selected",Number(x.dataset.i)===selected));$("nextBtn").disabled=false}))}
+function submitAnswer(){let q=quiz[idx];if(!checked){if(selected===null)return;answers[idx]=selected;checked=true;document.querySelectorAll(".answer").forEach(b=>{let i=Number(b.dataset.i);if(i===q.c)b.classList.add("correct");else if(i===selected)b.classList.add("wrong")});let good=selected===q.c;$("feedback").className="feedback "+(good?"good":"bad");$("feedback").textContent=(good?"¡Correcto! ":"Respuesta correcta: "+q.a[q.c]+". ")+q.e;$("nextBtn").textContent=idx===quiz.length-1?"Ver resultado":"Siguiente";$("progressBar").style.width=((idx+1)/quiz.length*100)+"%"}else{if(idx<quiz.length-1){idx++;renderQuestion()}else finish()}}
+function finish(){let correct=answers.filter((a,i)=>a===quiz[i].c).length;let label=mode==="exam"?"Simulacro de 25":mode==="quick"?"Test rápido":"Tema: "+quiz[0].t;let h=JSON.parse(localStorage.getItem("ccseHistory")||"[]");h.push({label,correct,total:quiz.length,score:correct/quiz.length,date:new Date().toLocaleDateString("es-ES")});localStorage.setItem("ccseHistory",JSON.stringify(h.slice(-50)));$("scoreText").textContent=`${correct}/${quiz.length}`;$("resultMessage").textContent=correct===quiz.length?"¡Excelente! Has acertado todas las preguntas.":correct/quiz.length>=.8?"¡Muy bien! Repasa las explicaciones de las preguntas falladas.":"Buen trabajo por practicar. Revisa las explicaciones y vuelve a intentarlo.";$("review").innerHTML=quiz.map((q,i)=>`<div class="review-item"><b>${i+1}. ${q.q}</b><div class="muted">Tu respuesta: ${answers[i]===null?"Sin responder":q.a[answers[i]]}</div><div style="color:${answers[i]===q.c?"var(--good)":"var(--bad)"};font-weight:700;font-size:14px">Correcta: ${q.a[q.c]}</div><div class="muted">${q.e}</div></div>`).join("");loadStats();show("result")}
+$("examBtn").onclick=()=>start("exam",25);$("quickBtn").onclick=()=>start("quick",10);$("nextBtn").onclick=submitAnswer;$("exitBtn").onclick=()=>{if(confirm("¿Quieres salir del test? Se perderá el progreso de este test."))show("home")};$("homeBtn").onclick=()=>show("home");$("againBtn").onclick=()=>start(mode,mode==="exam"?25:mode==="quick"?10:10,mode==="topic"?quiz[0].t:null);$("clearBtn").onclick=()=>{if(confirm("¿Borrar todos los resultados guardados en este dispositivo?")){localStorage.removeItem("ccseHistory");loadStats()}};drawTopics();loadStats();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+</script>
+</body></html>
